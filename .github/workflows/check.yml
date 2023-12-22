@@ -16,3 +16,20 @@ jobs:
         run: npm i
       - name: Lint
         run: npm run lint
+  test:
+    needs: [lint]
+    strategy:
+      matrix:
+        version: [14, 16, 18, 20]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4.1.1
+      - name: Install Dependancies
+        run: npm i
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v4.0.1
+        with:
+          node-version: ${{ matrix.version }}
+      - name: Test
+        run: npm run test
