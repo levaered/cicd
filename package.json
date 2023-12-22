@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "lint": "eslint src"
   },
   "dependencies": {
     "pinia": "^2.1.7",
@@ -14,6 +15,8 @@
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^4.2.3",
+    "eslint": "^8.56.0",
+    "eslint-plugin-vue": "^9.19.2",
     "vite": "^4.4.5"
   }
 }
