@@ -24,6 +24,11 @@ jobs:
         docker buildx create --use
         docker buildx inspect --bootstrap
         docker buildx build --platform linux/amd64,linux/arm64 -t ${{ secrets.DOCKERHUB_USERNAME }}/your-image-name:latest -t ${{ secrets.DOCKERHUB_USERNAME }}/your-image-name:$GITHUB_SHA .
+      
+        # Debugging information
+        docker images
+        docker inspect ${{ secrets.DOCKERHUB_USERNAME }}/your-image-name:latest
+        docker inspect ${{ secrets.DOCKERHUB_USERNAME }}/your-image-name:$GITHUB_SHA
 
     - name: Push Docker Image
       run: docker push ${{ secrets.DOCKERHUB_USERNAME }}/your-image-name:latest && docker push ${{ secrets.DOCKERHUB_USERNAME }}/your-image-name:$GITHUB_SHA
