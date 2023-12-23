@@ -1,4 +1,4 @@
-name: Build
+name: Docker Build
 
 on:
   push:
@@ -8,14 +8,25 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Set up QEMU
-        uses: docker/setup-qemu-action@v3
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
-      - name: Build and push
-        uses: docker/build-push-action@v5
-        with:
-          file: Dockerfile
-          push: true
-          tags: user/app:latest
+    - name: Checkout Repository
+      uses: actions/checkout@v2
+
+    - name: Set up Docker
+      uses: actions/setup-node@v3
+      with:
+        node-version: '14'
+
+    - name: Build Docker Image
+      run: |
+        docker build -t my-docker-image:latest -f path/to/Dockerfile .
+     
+    - name: Push Docker Image to Container Registry
+      run: |
+        echo ${{ secrets.DOCKERHUB_TOKEN }} | docker login -u ${{ secrets.DOCKERHUB_USERNAME }} --password-stdin
+        docker tag my-docker-image:latest my-docker-registry/my-docker-image:latest
+        docker push my-docker-registry/my-docker-image:latest
+      env:
+        DOCKER_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
+        DOCKER_PASSWORD: ${{ secrets.DOCKERHUB_TOKEN }}
