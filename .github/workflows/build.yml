@@ -24,7 +24,7 @@ jobs:
      
     - name: Push Docker Image to Container Registry
       run: |
-        echo ${{ secrets.DOCKER_PASSWORD }} | docker login -u ${{ secrets.DOCKER_USERNAME }} --password-stdin
+        docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
         docker tag my-docker-image:latest my-docker-registry/my-docker-image:latest
         docker push my-docker-registry/my-docker-image:latest
       env:
