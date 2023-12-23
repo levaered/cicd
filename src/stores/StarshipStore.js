@@ -29,7 +29,7 @@ export const useStarshipStore = defineStore("straships", {
             this.loading = value;
         },
         getPageCount(){
-            this.pageCount = Math. ceil(this.count / 10)
+            this.pageCount = Math.ceil(this.count / 10)
         },
         moveToPageByNumber(index){
             this.page = index;
